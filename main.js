@@ -36,10 +36,16 @@
       this.floatHead.height(newHeight)
     },
 
+    setCoverOpacity: function(offset) {
+      var opacity = this.floatHead.height() / this.config.initHeight
+      this.el.find('.cover').css('opacity', opacity )
+    },
+
     _scrollChange: function() {
       var offset = this.floatHead.offset().top
       this.setHeight(offset)
       this.setFontSize(offset)
+      this.setCoverOpacity(offset)
     }
 
 

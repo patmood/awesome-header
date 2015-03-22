@@ -32,3 +32,10 @@ html, body {
   color: #fff;
   display: inline-block;
 }
+
+#header .cover {
+  color: #fff;
+  height: 100%;
+  text-align: center;
+  font-size: 25em;
+}
