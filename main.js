@@ -20,7 +20,7 @@
     setFontSize: function(offset) {
       var newSize = Math.min(
         this.config.maxFontSize,
-        this.floatHead.height() * 0.5
+        this.floatHead.height()
       )
 
       newSize = Math.max(
@@ -32,10 +32,7 @@
     },
 
     setHeight: function(offset) {
-      var newHeight = Math.max(
-        this.config.initHeight - offset,
-        0
-      )
+      var newHeight = Math.max(this.config.initHeight - offset, 0)
       this.floatHead.height(newHeight)
     },
 
