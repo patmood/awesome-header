@@ -4,6 +4,7 @@
     this.el = el
     this.floatHead = el.find('.float-head')
     this.config = {
+      minHeight: 50 || options.minHeight,
       initHeight: 500 || options.initHeight,
       maxFontSize: 72 || options.maxFontSize,
       minFontSize: 18 || options.minFontSize
@@ -17,35 +18,30 @@
   AwesomeHeader.prototype = {
     constructor: AwesomeHeader,
 
-    setFontSize: function(offset) {
-      var newSize = Math.min(
-        this.config.maxFontSize,
-        this.floatHead.height()
-      )
-
-      newSize = Math.max(
-        this.config.minFontSize,
-        newSize
-      )
+    setFontSize: function(percentEffect) {
+      var fontDiff = this.config.maxFontSize - this.config.minFontSize
+        , newSize = this.config.minFontSize + (fontDiff * percentEffect)
       this.el.find('.text-container')
           .css('font-size', newSize + 'px')
     },
 
-    setHeight: function(offset) {
-      var newHeight = Math.max(this.config.initHeight - offset, 0)
+    setHeight: function(percentEffect) {
+      var newHeight = Math.max(this.config.initHeight * percentEffect, 0)
       this.floatHead.height(newHeight)
     },
 
-    setCoverOpacity: function(offset) {
+    setCoverOpacity: function() {
       var opacity = this.floatHead.height() / this.config.initHeight
       this.el.find('.cover').css('opacity', opacity )
     },
 
     _scrollChange: function() {
       var offset = this.floatHead.offset().top
-      this.setHeight(offset)
-      this.setFontSize(offset)
-      this.setCoverOpacity(offset)
+        , percentEffect = Math.max(1 - (offset / this.config.initHeight), 0)
+
+      this.setHeight(percentEffect)
+      this.setFontSize(percentEffect)
+      this.setCoverOpacity()
     }
 
 
